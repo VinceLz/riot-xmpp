@@ -2,8 +2,12 @@ package com.hawolt.xmpp.core.input;
 
 import java.util.Arrays;
 
-public class XMLBuffer {
+/**
+ * Created: 10/04/2022 14:15
+ * Author: Twitter @hawolt, Github @DamianSz2000
+ **/
 
+public class XMLBuffer {
     private byte[] buffer = new byte[1024];
     private int bufferIndex = 0;
 
@@ -34,7 +38,7 @@ public class XMLBuffer {
             }
             if (breakpoint != null) {
                 if (buffered.endsWith(breakpoint)) {
-                    dispatched(buffered);
+                    dispatch(buffered);
                 }
             }
         } else if (buffered.startsWith("<")) {
@@ -51,19 +55,20 @@ public class XMLBuffer {
             }
             if (breakpoint != null) {
                 if (buffered.endsWith(breakpoint)) {
-                    dispatched(buffered);
+                    dispatch(buffered);
                 }
             }
         }
     }
 
-    private void dispatched(String line) {
+    private void dispatch(String line) {
         callback.onInput(line);
         reset();
     }
 
     private void reset() {
-        bufferIndex = 0;
-        breakpoint = null;
+        this.bufferIndex = 0;
+        this.breakpoint = null;
+        this.buffer = new byte[1024];
     }
 }
