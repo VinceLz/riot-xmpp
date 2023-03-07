@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.misc.impl;
 
 import com.hawolt.cryptography.SHA256;
-import com.hawolt.xmpp.misc.IRiotDataCallback;
-import com.hawolt.xmpp.misc.RiotChatServer;
 import com.hawolt.virtual.leagueclient.VirtualLeagueClient;
 import com.hawolt.virtual.riotclient.VirtualRiotClient;
+import com.hawolt.xmpp.misc.IRiotDataCallback;
+import com.hawolt.xmpp.misc.RiotChatServer;
 import org.json.JSONObject;
 
 import java.util.Base64;

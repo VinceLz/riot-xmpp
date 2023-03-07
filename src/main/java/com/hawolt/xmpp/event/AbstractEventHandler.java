@@ -1,12 +1,10 @@
 package com.hawolt.xmpp.event;
 
-import com.hawolt.event.events.*;
-import com.hawolt.xmpp.event.events.*;
-import com.hawolt.xmpp.event.handler.socket.ISocketListener;
 import com.hawolt.generic.data.Unsafe;
 import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.core.IdentityCallback;
-import com.xmpp.event.events.*;
+import com.hawolt.xmpp.event.events.*;
+import com.hawolt.xmpp.event.handler.socket.ISocketListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,12 +1,12 @@
 package com.hawolt.xmpp.core.output;
 
-import com.hawolt.xmpp.event.handler.socket.ISocketListener;
-import com.hawolt.xmpp.misc.IRiotDataCallback;
-import com.hawolt.xmpp.misc.StaticConfig;
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.core.IdentityCallback;
 import com.hawolt.xmpp.core.input.InputCallback;
 import com.hawolt.xmpp.core.input.impl.InputInterpreter;
-import com.hawolt.logger.Logger;
+import com.hawolt.xmpp.event.handler.socket.ISocketListener;
+import com.hawolt.xmpp.misc.IRiotDataCallback;
+import com.hawolt.xmpp.misc.StaticConfig;
 
 import java.io.IOException;
 import java.net.Socket;

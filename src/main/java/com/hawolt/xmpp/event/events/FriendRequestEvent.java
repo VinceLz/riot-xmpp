@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.event.events;
 
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.AbstractEvent;
 import com.hawolt.xmpp.event.GenericEvent;
 import com.hawolt.xmpp.event.objects.friends.Friend;
 import com.hawolt.xmpp.event.objects.friends.GenericFriend;
-import com.hawolt.logger.Logger;
 import org.json.JSONObject;
 import org.json.XML;
 

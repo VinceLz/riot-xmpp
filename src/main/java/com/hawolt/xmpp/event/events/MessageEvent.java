@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.event.events;
 
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.AbstractEvent;
 import com.hawolt.xmpp.event.GenericEvent;
 import com.hawolt.xmpp.event.objects.conversation.history.AbstractMessage;
 import com.hawolt.xmpp.event.objects.conversation.history.History;
-import com.hawolt.logger.Logger;
 import org.json.XML;
 
 /**

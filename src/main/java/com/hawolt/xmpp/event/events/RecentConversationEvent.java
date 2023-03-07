@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.event.events;
 
-import com.hawolt.xmpp.event.objects.conversation.hint.Conversation;
-import com.hawolt.xmpp.event.objects.conversation.hint.RecentConversations;
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.AbstractEvent;
 import com.hawolt.xmpp.event.GenericEvent;
-import com.hawolt.logger.Logger;
+import com.hawolt.xmpp.event.objects.conversation.hint.Conversation;
+import com.hawolt.xmpp.event.objects.conversation.hint.RecentConversations;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;

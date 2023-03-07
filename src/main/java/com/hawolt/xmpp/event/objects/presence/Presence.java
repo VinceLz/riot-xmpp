@@ -1,8 +1,6 @@
 package com.hawolt.xmpp.event.objects.presence;
 
-import com.hawolt.event.objects.presence.impl.*;
 import com.hawolt.xmpp.event.objects.presence.impl.*;
-import com.xmpp.event.objects.presence.impl.*;
 import org.json.JSONObject;
 
 /**

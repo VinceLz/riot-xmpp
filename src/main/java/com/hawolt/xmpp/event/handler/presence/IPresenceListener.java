@@ -2,8 +2,6 @@ package com.hawolt.xmpp.event.handler.presence;
 
 import com.hawolt.xmpp.event.objects.presence.AbstractPresence;
 import com.hawolt.xmpp.event.objects.presence.impl.*;
-import com.hawolt.event.objects.presence.impl.*;
-import com.xmpp.event.objects.presence.impl.*;
 
 /**
  * Created: 17/04/2022 23:55

@@ -1,8 +1,8 @@
 package com.hawolt.xmpp.event;
 
+import com.hawolt.xmpp.core.output.IOutput;
 import com.hawolt.xmpp.event.objects.connection.ChatIdentity;
 import com.hawolt.xmpp.misc.IRiotDataCallback;
-import com.hawolt.xmpp.core.output.IOutput;
 
 /**
  * Created: 11/04/2022 00:06

@@ -1,8 +1,8 @@
 package com.hawolt.xmpp.event.events;
 
-import com.hawolt.xmpp.event.objects.connection.ChatIdentity;
 import com.hawolt.xmpp.event.AbstractEvent;
 import com.hawolt.xmpp.event.GenericEvent;
+import com.hawolt.xmpp.event.objects.connection.ChatIdentity;
 import org.json.JSONObject;
 import org.json.XML;
 

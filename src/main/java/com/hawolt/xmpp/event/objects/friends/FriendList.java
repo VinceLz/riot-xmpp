@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.event.objects.friends;
 
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.BaseObject;
 import com.hawolt.xmpp.event.handler.IBaseDispatcher;
 import com.hawolt.xmpp.event.handler.Observer;
 import com.hawolt.xmpp.event.objects.friends.impl.OnlineFriend;
-import com.hawolt.logger.Logger;
 
 import java.util.*;
 import java.util.function.Predicate;

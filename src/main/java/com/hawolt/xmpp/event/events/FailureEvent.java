@@ -1,8 +1,8 @@
 package com.hawolt.xmpp.event.events;
 
 import com.hawolt.xmpp.event.AbstractEvent;
-import com.hawolt.xmpp.event.objects.other.PlainData;
 import com.hawolt.xmpp.event.GenericEvent;
+import com.hawolt.xmpp.event.objects.other.PlainData;
 
 /**
  * Created: 11/04/2022 00:11

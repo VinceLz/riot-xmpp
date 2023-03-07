@@ -1,7 +1,7 @@
 package com.hawolt.xmpp.event.objects.conversation.history;
 
-import com.hawolt.xmpp.event.objects.conversation.hint.AbstractConversation;
 import com.hawolt.xmpp.event.BaseObject;
+import com.hawolt.xmpp.event.objects.conversation.hint.AbstractConversation;
 import org.json.JSONObject;
 
 /**
