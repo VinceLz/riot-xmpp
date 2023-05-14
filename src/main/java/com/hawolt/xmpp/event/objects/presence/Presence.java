@@ -62,7 +62,7 @@ public class Presence extends JSONObject {
     }
 
     public static class Builder {
-        private String championId, companionId, damageSkinId, gameQueueType, gameStatus, iconOverride, initRankStat, level, mapId, mapSkinId, masteryScore, profileIcon, puuid, skinVariant, skinname, timestamp, gameMode, observable, pty;
+        private String championId, companionId, damageSkinId, gameQueueType, gameStatus, iconOverride, initRankStat, level, mapId, mapSkinId, masteryScore, profileIcon, puuid, skinVariant, skinname, timestamp, gameMode, observable, pty,bannerIdSelected,challengeCrystalLevel,challengePoints,challengeTitle,challengeTitleSelected,challengeTokensSelected;
         private Regalia regalia = new Regalia();
 
         public Builder setRegalia(String bannerType, String crestType, String selectedPrestigeCrest) {
@@ -165,8 +165,44 @@ public class Presence extends JSONObject {
             return this;
         }
 
+        public Builder setBannerIdSelected(String bannerIdSelected) {
+            this.bannerIdSelected = bannerIdSelected;
+            return this;
+        }
+
+        public Builder setChallengeCrystalLevel(String challengeCrystalLevel) {
+            this.challengeCrystalLevel = challengeCrystalLevel;
+            return this;
+        }
+
+        public Builder setChallengePoints(String challengePoints) {
+            this.challengePoints = challengePoints;
+            return this;
+        }
+
+        public Builder setChallengeTitle(String challengeTitle) {
+            this.challengeTitle = challengeTitle;
+            return this;
+        }
+
+        public Builder setChallengeTitleSelected(String challengeTitleSelected) {
+            this.challengeTitleSelected = challengeTitleSelected;
+            return this;
+        }
+
+        public Builder setChallengeTokensSelected(String challengeTokensSelected) {
+            this.challengeTokensSelected = challengeTokensSelected;
+            return this;
+        }
+
         public Presence build() {
             Presence presence = new Presence();
+            presence.put("bannerIdSelected", bannerIdSelected);
+            presence.put("challengeCrystalLevel", challengeCrystalLevel);
+            presence.put("challengePoints", challengePoints);
+            presence.put("challengeTitle", challengeTitle);
+            presence.put("challengeTitleSelected", challengeTitleSelected);
+            presence.put("challengeTokensSelected", challengeTokensSelected);
             presence.put("championId", championId);
             presence.put("companionId", companionId);
             presence.put("damageSkinId", damageSkinId);
