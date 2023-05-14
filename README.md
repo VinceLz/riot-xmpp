@@ -20,7 +20,7 @@ and this dependency
 <dependency>
     <groupId>com.github.hawolt</groupId>
     <artifactId>riot-xmpp</artifactId>
-    <version>ba4d9f3b54</version>
+    <version>61208da859</version>
 </dependency>
 ```
 
