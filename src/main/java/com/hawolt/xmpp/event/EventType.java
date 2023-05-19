@@ -13,6 +13,7 @@ public enum EventType {
     FRIEND_REQUEST,
     PERSONAL_INFO,
     SUMMONER_NAME,
+    ARCHIVE_READ,
     FRIEND_LIST,
     ON_READY,
     PRESENCE,

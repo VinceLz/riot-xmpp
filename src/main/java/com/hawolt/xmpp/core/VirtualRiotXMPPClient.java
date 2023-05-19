@@ -23,6 +23,7 @@ import com.hawolt.xmpp.event.handler.socket.ISocketListener;
 import com.hawolt.xmpp.event.handler.socket.SocketHandler;
 import com.hawolt.xmpp.event.handler.socket.SocketIssue;
 import com.hawolt.xmpp.event.objects.connection.ChatIdentity;
+import com.hawolt.xmpp.event.objects.conversation.archive.ReadArchive;
 import com.hawolt.xmpp.event.objects.conversation.hint.RecentConversations;
 import com.hawolt.xmpp.event.objects.conversation.history.AbstractMessage;
 import com.hawolt.xmpp.event.objects.conversation.history.MessageHistory;
@@ -41,6 +42,7 @@ import com.hawolt.xmpp.misc.StaticConfig;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -52,7 +54,7 @@ import java.util.function.Consumer;
  **/
 
 public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActive, IOutput {
-
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -69,6 +71,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         put(OutputType.FRIEND_BLOCK, new Sendable("<iq type=\"set\" id=\"%s\" to=\"pvp.net\"><query xmlns=\"jabber:iq:privacy\"><add name=\"LOL\"><item value=\"%s\" action=\"deny\" order=\"1\" type=\"jid\"/></add></query></iq>"));
         put(OutputType.FRIEND_REMOVE, new Sendable("<iq type=\"set\" id=\"roster_remove_%s\"><query xmlns=\"jabber:iq:riotgames:roster\"><item jid=\"%s\" subscription=\"remove\"/></query></iq>"));
         put(OutputType.ARCHIVE, new Sendable("<iq type=\"get\" id=\"%s\"><query xmlns=\"jabber:iq:riotgames:archive\"><with>%s</with></query></iq>"));
+        put(OutputType.ARCHIVE_READ, new Sendable("<iq type=\"set\" id=\"%s\"><query xmlns=\"jabber:iq:riotgames:archive:read\"><acknowledge with=\"%s\" read=\"%s\"/></query></iq> "));
         put(OutputType.GROUP_MESSAGE, new Sendable("<message id=\"%s:%s\" to=\"%s\" type=\"groupchat\"><body>%s</body></message>"));
         put(OutputType.MESSAGE, new Sendable("<message id=\"%s:%s\" to=\"%s\" type=\"chat\"><body>%s</body></message>"));
     }};
@@ -187,6 +190,13 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
                 pipe.add(friend);
             }
         });
+        this.addHandler(EventType.ARCHIVE_READ, (EventListener<ReadArchive>) archive -> {
+            String identifier = archive.getId();
+            Optional.ofNullable(consumers.get(identifier)).ifPresent(consumer -> {
+                consumer.accept(Unsafe.cast(archive));
+                consumers.remove(identifier);
+            });
+        });
         this.addHandler(EventType.FRIEND_REQUEST_STATUS, (EventListener<FriendStatus>) status -> {
             Optional.ofNullable(consumers.get(status.getId())).ifPresent(consumer -> {
                 consumer.accept(Unsafe.cast(status));
@@ -238,6 +248,18 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         String id = String.join("_", "get", "archive", String.valueOf(identifier), jid);
         consumers.put(id, consumer);
         map.get(OutputType.ARCHIVE).send(this, id, jid);
+    }
+
+    public void markChatAsRead(String jid) {
+        markChatAsRead(jid, null);
+    }
+
+    public void markChatAsRead(String jid, Consumer<ReadArchive> consumer) {
+        int identifier = integer.incrementAndGet();
+        String id = String.join("_", "set", "archive", "read", String.valueOf(identifier), jid);
+        String timestamp = SIMPLE_DATE_FORMAT.format(new Date(System.currentTimeMillis()));
+        if (consumer != null) consumers.put(id, consumer);
+        map.get(OutputType.ARCHIVE).send(this, id, jid, timestamp);
     }
 
     public void blockUser(String jid) {

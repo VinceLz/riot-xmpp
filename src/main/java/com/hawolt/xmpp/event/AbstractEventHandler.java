@@ -30,6 +30,7 @@ public abstract class AbstractEventHandler implements ISocketListener, IdentityC
         events.put(EventType.FRIEND_REQUEST, FriendRequestEvent::new);
         events.put(EventType.PERSONAL_INFO, PersonalInfoEvent::new);
         events.put(EventType.SUMMONER_NAME, SummonerNameEvent::new);
+        events.put(EventType.ARCHIVE_READ, ArchiveReadEvent::new);
         events.put(EventType.FRIEND_LIST, FriendListEvent::new);
         events.put(EventType.PRESENCE, PresenceEvent::new);
         events.put(EventType.FAILURE, FailureEvent::new);

@@ -27,6 +27,8 @@ public class AbstractEvent {
             this.type = EventType.FRIEND_REQUEST;
         } else if (name != null && name.startsWith("get_archive")) {
             this.type = EventType.MESSAGE_HISTORY;
+        } else if (name != null && name.startsWith("set_archive_read")) {
+            this.type = EventType.ARCHIVE_READ;
         } else if (name != null && name.startsWith("roster_")) {
             this.type = EventType.FRIEND_REQUEST_STATUS;
         } else if (name != null && name.startsWith("message")) {
