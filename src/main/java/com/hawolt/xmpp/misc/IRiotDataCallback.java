@@ -8,6 +8,9 @@ import java.util.function.Supplier;
  **/
 
 public interface IRiotDataCallback {
+    String getUsername();
+    String getPassword();
+
     String getGameRegion();
 
     String getXMPPToken();
@@ -15,6 +18,10 @@ public interface IRiotDataCallback {
     String getIdentifier();
 
     RiotChatServer getChatServer();
+
+    String getAccessToken();
+
+    String getEntitlementToken();
 
     Supplier<String> getEntitlementSupplier();
 
