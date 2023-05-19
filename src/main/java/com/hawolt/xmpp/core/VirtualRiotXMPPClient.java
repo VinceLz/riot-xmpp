@@ -109,8 +109,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
             socket.setKeepAlive(true);
             this.connect(socket);
         } catch (IOException e) {
-            //TODO callback?
-            Logger.error(e);
+            onException(e);
         }
     }
 
@@ -132,8 +131,9 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         }, 30, 30, TimeUnit.SECONDS);
         this.session = this.scheduledExecutorService.scheduleAtFixedRate(() -> {
             if (!socket.isClosed()) {
-                String token = callback.getEntitlementSupplier().get();
-                refreshSession(identity.getIdentity(), callback.getAccessTokenSupplier().get(), token);
+                String entitlement = callback.getEntitlementSupplier().get();
+                String access = callback.getAccessTokenSupplier().get();
+                refreshSession(identity.getIdentity(), access, entitlement);
             }
         }, 1, 1, TimeUnit.HOURS);
         this.in = this.executorService.submit(connectionHandler);
@@ -224,7 +224,6 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
     public AtomicInteger getIdManager() {
         return integer;
     }
-
 
     public void addFriendListener(IFriendListener listener) {
         this.list.addObserver(listener);
@@ -353,7 +352,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         addListener(HandlerType.SOCKET, Unsafe.cast(listener));
     }
 
-    public void addListener(HandlerType type, AbstractObserver<?, ?> listener) {
+    public <S> void addListener(HandlerType type, S listener) {
         this.handlers.get(type).addObserver(Unsafe.cast(listener));
     }
 
