@@ -19,7 +19,7 @@ public class StreamFeatureInterpreter extends AbstractInterpreter {
         map.put("mechanisms", new AbstractInterpreter() {
             @Override
             public void handle(String line, ChatIdentity identity, IRiotDataCallback callback, IOutput output) {
-                output.write(String.format(preset(), callback.getAccessTokenSupplier().get(), callback.getXMPPToken()));
+                output.write(String.format(preset(), callback.getAccessToken(), callback.getXMPPToken()));
             }
 
             @Override

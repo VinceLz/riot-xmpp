@@ -23,7 +23,7 @@ public class IQInterpreter extends AbstractInterpreter {
         map.put("_xmpp_bind1", new AbstractInterpreter() {
             @Override
             public void handle(String line, ChatIdentity identity, IRiotDataCallback callback, IOutput output) {
-                output.write(String.format(preset(), callback.getEntitlementSupplier().get()));
+                output.write(String.format(preset(), callback.getEntitlementToken()));
                 unknown("_xmpp_bind1", line, identity, callback, output);
             }
 
