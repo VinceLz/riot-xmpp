@@ -19,5 +19,7 @@ public enum EventType {
     PRESENCE,
     MESSAGE,
     FAILURE,
+    INVALID_TOKEN,
+    FRIEND_REQUEST_FAILED,
     UNKNOWN
 }
