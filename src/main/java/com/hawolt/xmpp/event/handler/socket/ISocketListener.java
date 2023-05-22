@@ -9,6 +9,8 @@ public interface ISocketListener {
 
     String getConnectionIdentifier();
 
+    void onSessionRefreshFail();
+
     void onConnectionIssue();
 
     void onSessionExpired();

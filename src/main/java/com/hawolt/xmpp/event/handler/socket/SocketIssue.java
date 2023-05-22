@@ -6,5 +6,5 @@ package com.hawolt.xmpp.event.handler.socket;
  **/
 
 public enum SocketIssue {
-    SESSION_EXPIRED, SOCKET_CLOSED, NO_IDENTITY
+    SESSION_EXPIRED, SOCKET_CLOSED, FAILED_SESSION_REFRESH, TERMINATED, NO_IDENTITY
 }
