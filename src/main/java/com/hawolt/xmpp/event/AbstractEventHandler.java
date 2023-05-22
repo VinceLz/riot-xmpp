@@ -23,11 +23,13 @@ public abstract class AbstractEventHandler implements ISocketListener, IdentityC
     private final Map<EventType, List<EventListener<?>>> handlers = new HashMap<>();
 
     public AbstractEventHandler() {
+        events.put(EventType.FRIEND_REQUEST_FAILED, FailedFriendRequestEvent::new);
         events.put(EventType.RECENT_CONVERSATIONS, RecentConversationEvent::new);
         events.put(EventType.FRIEND_REQUEST_STATUS, FriendStatusEvent::new);
         events.put(EventType.MESSAGE_HISTORY, MessageHistoryEvent::new);
         events.put(EventType.SESSION_EXPIRED, SessionExpiredEvent::new);
         events.put(EventType.FRIEND_REQUEST, FriendRequestEvent::new);
+        events.put(EventType.INVALID_TOKEN, InvalidTokenEvent::new);
         events.put(EventType.PERSONAL_INFO, PersonalInfoEvent::new);
         events.put(EventType.SUMMONER_NAME, SummonerNameEvent::new);
         events.put(EventType.ARCHIVE_READ, ArchiveReadEvent::new);
