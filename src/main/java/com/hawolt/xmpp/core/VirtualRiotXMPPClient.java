@@ -32,6 +32,7 @@ import com.hawolt.xmpp.event.objects.conversation.history.impl.IncomingMessage;
 import com.hawolt.xmpp.event.objects.friends.FriendList;
 import com.hawolt.xmpp.event.objects.friends.GenericFriend;
 import com.hawolt.xmpp.event.objects.friends.IFriendListener;
+import com.hawolt.xmpp.event.objects.friends.status.FailedFriendStatus;
 import com.hawolt.xmpp.event.objects.friends.status.FriendStatus;
 import com.hawolt.xmpp.event.objects.presence.AbstractPresence;
 import com.hawolt.xmpp.event.objects.presence.Presence;
@@ -117,6 +118,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
     }
 
     private void connect(Socket socket) throws IOException {
+        this.addHandler(EventType.INVALID_TOKEN, event -> onSessionRefreshFail());
         this.addHandler(EventType.SESSION_EXPIRED, event -> onSessionExpired());
         this.addHandler(EventType.PERSONAL_INFO, (EventListener<ChatIdentity>) identity -> {
             this.identity = identity;
@@ -154,6 +156,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
             handlers.get(HandlerType.CONNECTION).dispatch(Unsafe.cast(presence));
             handlers.get(HandlerType.PRESENCE).dispatch(Unsafe.cast(presence));
         });
+        this.addHandler(EventType.FRIEND_REQUEST_FAILED, (EventListener<FailedFriendStatus>) event -> this.list.fail(null));
         this.addHandler(EventType.FRIEND_LIST, (EventListener<FriendList>) list -> {
             this.list = list;
             while (!pipe.isEmpty()) {
@@ -395,6 +398,11 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
     }
 
     @Override
+    public void onSessionRefreshFail() {
+        handlers.get(HandlerType.SOCKET).dispatch(Unsafe.cast(SocketIssue.FAILED_SESSION_REFRESH));
+    }
+
+    @Override
     public void onConnectionIssue() {
         handlers.get(HandlerType.SOCKET).dispatch(Unsafe.cast(SocketIssue.SOCKET_CLOSED));
     }
@@ -407,7 +415,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
 
     @Override
     public void onTermination() {
-
+        handlers.get(HandlerType.SOCKET).dispatch(Unsafe.cast(SocketIssue.TERMINATED));
     }
 
     @Override
