@@ -16,7 +16,7 @@ public abstract class AbstractMessage extends BaseObject {
         this.id = object.getString("id");
         this.type = object.get("type").toString();
         this.body = object.get("body").toString();
-        this.to = object.getString("to");
+        this.to = object.get("to").toString();
     }
 
     protected AbstractMessage(AbstractConversation conversation) {
