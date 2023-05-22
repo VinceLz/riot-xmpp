@@ -8,6 +8,8 @@ package com.hawolt.xmpp.event.objects.friends;
 public interface IFriendListener {
     void onFriendRemove(GenericFriend friend);
 
+    void onFailedInteraction(GenericFriend friend);
+
     void onIncomingFriendRequest(GenericFriend friend);
 
     void onOutgoingFriendRequest(GenericFriend friend);

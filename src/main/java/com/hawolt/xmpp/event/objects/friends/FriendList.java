@@ -40,6 +40,9 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
                 case FRIEND_REMOVE:
                     listener.onFriendRemove(friend);
                     break;
+                case FAILED:
+                    listener.onFailedInteraction(friend);
+                    break;
                 case FRIEND_IN:
                     listener.onIncomingFriendRequest(friend);
                     break;
@@ -76,6 +79,13 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
     public SubscriptionType find(GenericFriend friend) {
         synchronized (lock) {
             return new ArrayList<>(map.values()).stream().flatMap(List::stream).filter(o -> o.getPUUID().equals(friend.getPUUID())).map(GenericFriend::getType).findFirst().orElse(SubscriptionType.UNKNOWN);
+        }
+    }
+
+    public void fail(String jid) {
+        List<GenericFriend> list = find(friend -> friend.getJID().equals(jid));
+        for (GenericFriend friend : list) {
+            dispatch(FriendEventType.FAILED, friend);
         }
     }
 
