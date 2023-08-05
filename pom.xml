@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.github.hawolt</groupId>
             <artifactId>league-client-api</artifactId>
-            <version>bf09f45</version>
+            <version>0cfcb480f3</version>
         </dependency>
     </dependencies>
 </project>
