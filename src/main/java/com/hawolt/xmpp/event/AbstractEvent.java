@@ -53,14 +53,17 @@ public class AbstractEvent {
             this.type = EventType.SUMMONER_NAME;
         } else if ("_xmpp_bind1".equals(name)) {
             this.type = EventType.PERSONAL_INFO;
-        } else if ("xmpp_entitlements_0".equals(name)) {
-            this.type = EventType.INVALID_TOKEN;
         } else if ("stream:error".equals(name)) {
             this.type = EventType.SESSION_EXPIRED;
         } else if ("failure".equals(name)) {
             this.type = EventType.FAILURE;
         } else {
-            this.type = EventType.UNKNOWN;
+            Matcher matcher = pattern.matcher(plain);
+            if ("xmpp_entitlements_0".equals(name) && matcher.find() && !matcher.group(1).equals("result")) {
+                this.type = EventType.INVALID_TOKEN;
+            } else {
+                this.type = EventType.UNKNOWN;
+            }
         }
     }
 
