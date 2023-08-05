@@ -9,9 +9,10 @@ import org.json.JSONObject;
  **/
 
 public class Presence extends JSONObject {
-
-    public String toHTML() {
-        String rawHtml = toString();
+    
+    @Override
+    public String toString() {
+        String rawHtml = super.toString();
         int rawHtmlLength = rawHtml.length();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < rawHtmlLength; i++) {
@@ -62,7 +63,7 @@ public class Presence extends JSONObject {
     }
 
     public static class Builder {
-        private String championId, companionId, damageSkinId, gameQueueType, gameStatus, iconOverride, initRankStat, level, mapId, mapSkinId, masteryScore, profileIcon, puuid, skinVariant, skinname, timestamp, gameMode, observable, pty,bannerIdSelected,challengeCrystalLevel,challengePoints,challengeTitle,challengeTitleSelected,challengeTokensSelected;
+        private String championId, companionId, damageSkinId, gameQueueType, gameStatus, iconOverride, initRankStat, level, mapId, mapSkinId, masteryScore, profileIcon, puuid, skinVariant, skinname, timestamp, gameMode, observable, pty, bannerIdSelected, challengeCrystalLevel, challengePoints, challengeTitle, challengeTitleSelected, challengeTokensSelected, gameId, queueId, rankedLeagueDivision, rankedLeagueQueue, rankedLeagueTier;
         private Regalia regalia = new Regalia();
 
         public Builder setRegalia(String bannerType, String crestType, String selectedPrestigeCrest) {
@@ -195,33 +196,69 @@ public class Presence extends JSONObject {
             return this;
         }
 
+        public Builder setObservable(String observable) {
+            this.observable = observable;
+            return this;
+        }
+
+        public Builder setGameId(String gameId) {
+            this.gameId = gameId;
+            return this;
+        }
+
+        public Builder setQueueId(String queueId) {
+            this.queueId = queueId;
+            return this;
+        }
+
+        public Builder setRankedLeagueDivision(String rankedLeagueDivision) {
+            this.rankedLeagueDivision = rankedLeagueDivision;
+            return this;
+        }
+
+        public Builder setRankedLeagueQueue(String rankedLeagueQueue) {
+            this.rankedLeagueQueue = rankedLeagueQueue;
+            return this;
+        }
+
+        public Builder setRankedLeagueTier(String rankedLeagueTier) {
+            this.rankedLeagueTier = rankedLeagueTier;
+            return this;
+        }
+
         public Presence build() {
             Presence presence = new Presence();
-            presence.put("bannerIdSelected", bannerIdSelected);
-            presence.put("challengeCrystalLevel", challengeCrystalLevel);
-            presence.put("challengePoints", challengePoints);
-            presence.put("challengeTitle", challengeTitle);
-            presence.put("challengeTitleSelected", challengeTitleSelected);
-            presence.put("challengeTokensSelected", challengeTokensSelected);
-            presence.put("championId", championId);
-            presence.put("companionId", companionId);
-            presence.put("damageSkinId", damageSkinId);
-            presence.put("gameMode", gameMode);
-            presence.put("gameQueueType", gameQueueType);
-            presence.put("gameStatus", gameStatus);
-            presence.put("iconOverride", iconOverride);
-            presence.put("initRankStat", initRankStat);
-            presence.put("level", level);
-            presence.put("mapId", mapId);
-            presence.put("mapSkinId", mapSkinId);
-            presence.put("masteryScore", masteryScore);
-            presence.put("profileIcon", profileIcon);
-            presence.put("pty", pty);
-            presence.put("puuid", puuid);
-            presence.put("regalia", regalia.build());
-            presence.put("skinVariant", skinVariant);
-            presence.put("skinname", skinname);
-            presence.put("timeStamp", timestamp);
+            if (bannerIdSelected != null) presence.put("bannerIdSelected", bannerIdSelected);
+            if (challengeCrystalLevel != null) presence.put("challengeCrystalLevel", challengeCrystalLevel);
+            if (challengePoints != null) presence.put("challengePoints", challengePoints);
+            if (challengeTitle != null) presence.put("challengeTitle", challengeTitle);
+            if (challengeTitleSelected != null) presence.put("challengeTitleSelected", challengeTitleSelected);
+            if (challengeTokensSelected != null) presence.put("challengeTokensSelected", challengeTokensSelected);
+            if (championId != null) presence.put("championId", championId);
+            if (companionId != null) presence.put("companionId", companionId);
+            if (damageSkinId != null) presence.put("damageSkinId", damageSkinId);
+            if (gameId != null) presence.put("gameId", gameId);
+            if (gameMode != null) presence.put("gameMode", gameMode);
+            if (gameQueueType != null) presence.put("gameQueueType", gameQueueType);
+            if (gameStatus != null) presence.put("gameStatus", gameStatus);
+            if (iconOverride != null) presence.put("iconOverride", iconOverride);
+            if (observable != null) presence.put("isObservable", observable);
+            if (initRankStat != null) presence.put("initRankStat", initRankStat);
+            if (level != null) presence.put("level", level);
+            if (mapId != null) presence.put("mapId", mapId);
+            if (mapSkinId != null) presence.put("mapSkinId", mapSkinId);
+            if (masteryScore != null) presence.put("masteryScore", masteryScore);
+            if (profileIcon != null) presence.put("profileIcon", profileIcon);
+            if (pty != null) presence.put("pty", pty);
+            if (puuid != null) presence.put("puuid", puuid);
+            if (queueId != null) presence.put("queueId", queueId);
+            if (rankedLeagueDivision != null) presence.put("rankedLeagueDivision", rankedLeagueDivision);
+            if (rankedLeagueQueue != null) presence.put("rankedLeagueQueue", rankedLeagueQueue);
+            if (rankedLeagueTier != null) presence.put("rankedLeagueTier", rankedLeagueTier);
+            if (regalia != null) presence.put("regalia", regalia.build());
+            if (skinVariant != null) presence.put("skinVariant", skinVariant);
+            if (skinname != null) presence.put("skinname", skinname);
+            if (timestamp != null) presence.put("timeStamp", timestamp);
             return presence;
         }
     }
