@@ -54,4 +54,8 @@ public class XMPPConnectionHandler implements Runnable {
     public XMPPOutputHandler getOutput() {
         return output;
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
 }
