@@ -1,5 +1,7 @@
 package com.hawolt.xmpp.event.objects.friends;
 
+import com.hawolt.xmpp.event.objects.friends.status.FailedFriendStatus;
+
 /**
  * Created: 16/04/2022 14:16
  * Author: Twitter @hawolt
@@ -7,8 +9,6 @@ package com.hawolt.xmpp.event.objects.friends;
 
 public interface IFriendListener {
     void onFriendRemove(GenericFriend friend);
-
-    void onFailedInteraction(GenericFriend friend);
 
     void onIncomingFriendRequest(GenericFriend friend);
 
@@ -21,4 +21,6 @@ public interface IFriendListener {
     void onOutgoingFriendRequestCanceled(GenericFriend friend);
 
     void onOutgoingFriendRequestAccepted(GenericFriend friend);
+
+    void onFailedInteraction(FailedFriendStatus status);
 }

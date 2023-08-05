@@ -30,7 +30,6 @@ public class GenericFriend extends BaseObject {
         if (!isGrouped) return;
         JSONObject group = o.getJSONObject("group");
         this.priority = group.getInt("priority");
-        this.group = group.getString("content");
     }
 
     public String getJID() {

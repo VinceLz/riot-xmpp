@@ -18,7 +18,7 @@ public class FailedFriendStatus extends FriendStatus {
         JSONObject error = o.getJSONObject("error");
         this.code = error.getInt("code");
         this.result = error.getString("type");
-        if (code >= 500) {
+        if (code >= 500 || code == 404) {
             this.reason = error.keySet().stream().filter(k -> k.contains("-")).collect(Collectors.joining());
         } else {
             this.reason = error.getJSONObject("text").getString("content");

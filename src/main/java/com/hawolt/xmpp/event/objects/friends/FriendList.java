@@ -1,10 +1,10 @@
 package com.hawolt.xmpp.event.objects.friends;
 
-import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.BaseObject;
 import com.hawolt.xmpp.event.handler.IBaseDispatcher;
 import com.hawolt.xmpp.event.handler.Observer;
 import com.hawolt.xmpp.event.objects.friends.impl.OnlineFriend;
+import com.hawolt.xmpp.event.objects.friends.status.FailedFriendStatus;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -40,9 +40,6 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
                 case FRIEND_REMOVE:
                     listener.onFriendRemove(friend);
                     break;
-                case FAILED:
-                    listener.onFailedInteraction(friend);
-                    break;
                 case FRIEND_IN:
                     listener.onIncomingFriendRequest(friend);
                     break;
@@ -65,6 +62,12 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
         }
     }
 
+    public void fail(FailedFriendStatus status) {
+        for (IFriendListener listener : observers) {
+            listener.onFailedInteraction(status);
+        }
+    }
+
     private final Object lock = new Object();
 
     public List<GenericFriend> find(Predicate<GenericFriend> predicate) {
@@ -82,17 +85,9 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
         }
     }
 
-    public void fail(String jid) {
-        List<GenericFriend> list = find(friend -> friend.getJID().equals(jid));
-        for (GenericFriend friend : list) {
-            dispatch(FriendEventType.FAILED, friend);
-        }
-    }
-
     public void add(GenericFriend friend) {
         SubscriptionType type = find(friend);
         put(friend);
-        Logger.info("[xmpp-friend] [+] {}:{}", type.name(), friend.type.name());
         if (type == SubscriptionType.UNKNOWN) {
             switch (friend.type) {
                 case PENDING_IN:
@@ -121,7 +116,6 @@ public class FriendList extends BaseObject implements Observer<IFriendListener>,
 
     public void remove(GenericFriend friend) {
         SubscriptionType type = find(friend);
-        Logger.info("[xmpp-friend] [-] {}:{}", type.name(), friend.type.name());
         if (type == SubscriptionType.BOTH) {
             dispatch(FriendEventType.FRIEND_REMOVE, friend);
         } else if (type == SubscriptionType.PENDING_IN) {
