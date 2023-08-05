@@ -316,7 +316,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
     public void setCustomPresence(String type, String status, Presence presence) {
         long timestamp = System.currentTimeMillis();
         String region = connectionHandler.getOutput().getCallback().getGameRegion();
-        map.get(OutputType.CUSTOM_PRESENCE).send(this, integer.incrementAndGet(), type, status, type, timestamp, status, region, type, timestamp, status, "");
+        map.get(OutputType.CUSTOM_PRESENCE).send(this, integer.incrementAndGet(), type, status, type, timestamp, status, region, type, timestamp, status, presence.toString());
     }
 
     public void addFriendByName(String name) {
