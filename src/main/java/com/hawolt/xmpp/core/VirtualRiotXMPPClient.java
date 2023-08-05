@@ -156,7 +156,6 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
             handlers.get(HandlerType.CONNECTION).dispatch(Unsafe.cast(presence));
             handlers.get(HandlerType.PRESENCE).dispatch(Unsafe.cast(presence));
         });
-        this.addHandler(EventType.FRIEND_REQUEST_FAILED, (EventListener<FailedFriendStatus>) event -> this.list.fail(null));
         this.addHandler(EventType.FRIEND_LIST, (EventListener<FriendList>) list -> {
             this.list = list;
             while (!pipe.isEmpty()) {
@@ -198,6 +197,12 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
             Optional.ofNullable(consumers.get(identifier)).ifPresent(consumer -> {
                 consumer.accept(Unsafe.cast(archive));
                 consumers.remove(identifier);
+            });
+        });
+        this.addHandler(EventType.FRIEND_REQUEST_FAILED, (EventListener<FailedFriendStatus>) status -> {
+            Optional.ofNullable(consumers.get(status.getId())).ifPresent(consumer -> {
+                consumers.remove(status.getId());
+                list.fail(status);
             });
         });
         this.addHandler(EventType.FRIEND_REQUEST_STATUS, (EventListener<FriendStatus>) status -> {
@@ -311,7 +316,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
     public void setCustomPresence(String type, String status, Presence presence) {
         long timestamp = System.currentTimeMillis();
         String region = connectionHandler.getOutput().getCallback().getGameRegion();
-        map.get(OutputType.CUSTOM_PRESENCE).send(this, integer.incrementAndGet(), type, status, type, timestamp, status, region, type, timestamp, status, presence.toString());
+        map.get(OutputType.CUSTOM_PRESENCE).send(this, integer.incrementAndGet(), type, status, type, timestamp, status, region, type, timestamp, status, "");
     }
 
     public void addFriendByName(String name) {
@@ -348,6 +353,10 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         int identifier = integer.incrementAndGet();
         if (consumer != null) consumers.put("roster_remove_" + identifier, consumer);
         map.get(OutputType.FRIEND_REMOVE).send(this, identifier, jid);
+    }
+
+    public boolean isConnected() {
+        return getConnectionHandler().getSocket().isConnected();
     }
 
     public void terminate() throws IOException {
