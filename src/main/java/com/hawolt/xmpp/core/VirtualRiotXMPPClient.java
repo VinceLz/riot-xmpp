@@ -66,6 +66,9 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         put(OutputType.RIOT_PRESENCE, new Sendable("<presence id='presence_%s'><show>%s</show><status>%s</status><games><ritoplus><s.t>%s</s.t><s.c>live</s.c><m></m><s.r>%s</s.r><s.p>ritoplus</s.p><st>%s</st></ritoplus><keystone><m></m><s.t>%s</s.t><s.p>keystone</s.p><st>%s</st></keystone></games></presence>"));
         put(OutputType.CUSTOM_PRESENCE, new Sendable("<presence id='presence_%s'><show>%s</show><status>%s</status><games><keystone><st>%s</st><s.t>%s</s.t><m>%s</m><s.p>keystone</s.p></keystone><league_of_legends><s.r>%s</s.r><st>%s</st><s.t>%s</s.t><m>%s</m><p>%s</p><s.p>league_of_legends</s.p><s.c>live</s.c></league_of_legends></games></presence>"));
         put(OutputType.PRESENCE, new Sendable("<presence id='presence_%s'><show>%s</show><status>%s</status><games><keystone><st>%s</st><s.t>%s</s.t><m>%s</m><s.p>keystone</s.p></keystone><league_of_legends><s.r>%s</s.r><st>%s</st><s.t>%s</s.t><m>%s</m><p>{&quot;championId&quot;:&quot;&quot;,&quot;companionId&quot;:&quot;1&quot;,&quot;damageSkinId&quot;:&quot;1&quot;,&quot;gameQueueType&quot;:&quot;&quot;,&quot;gameStatus&quot;:&quot;outOfGame&quot;,&quot;iconOverride&quot;:&quot;&quot;,&quot;initRankStat&quot;:&quot;0&quot;,&quot;level&quot;:&quot;30&quot;,&quot;mapId&quot;:&quot;&quot;,&quot;mapSkinId&quot;:&quot;1&quot;,&quot;masteryScore&quot;:&quot;0&quot;,&quot;profileIcon&quot;:&quot;%s&quot;,&quot;puuid&quot;:&quot;%s&quot;,&quot;regalia&quot;:&quot;{\\&quot;bannerType\\&quot;:2,\\&quot;crestType\\&quot;:1,\\&quot;selectedPrestigeCrest\\&quot;:0}&quot;,&quot;skinVariant&quot;:&quot;&quot;,&quot;skinname&quot;:&quot;&quot;}</p><s.p>league_of_legends</s.p><s.c>live</s.c></league_of_legends></games></presence>"));
+        put(OutputType.JOIN_UNPROTECTED_MUC, new Sendable("<presence id='join_muc_%s' to='%s@%s/%s'><show>%s</show><status>%s</status><games><keystone><st>%s</st><s.t>%s</s.t><m>%s</m><s.p>keystone</s.p></keystone><league_of_legends><s.r>%s</s.r><st>%s</st><s.t>%s</s.t><m>%s</m><p>{&quot;championId&quot;:&quot;&quot;,&quot;companionId&quot;:&quot;1&quot;,&quot;damageSkinId&quot;:&quot;1&quot;,&quot;gameQueueType&quot;:&quot;&quot;,&quot;gameStatus&quot;:&quot;outOfGame&quot;,&quot;iconOverride&quot;:&quot;&quot;,&quot;initRankStat&quot;:&quot;0&quot;,&quot;level&quot;:&quot;30&quot;,&quot;mapId&quot;:&quot;&quot;,&quot;mapSkinId&quot;:&quot;1&quot;,&quot;masteryScore&quot;:&quot;0&quot;,&quot;profileIcon&quot;:&quot;%s&quot;,&quot;puuid&quot;:&quot;%s&quot;,&quot;regalia&quot;:&quot;{\\&quot;bannerType\\&quot;:2,\\&quot;crestType\\&quot;:1,\\&quot;selectedPrestigeCrest\\&quot;:0}&quot;,&quot;skinVariant&quot;:&quot;&quot;,&quot;skinname&quot;:&quot;&quot;}</p><s.p>league_of_legends</s.p><s.c>live</s.c></league_of_legends></games><x xmlns='http://jabber.org/protocol/muc'/></presence>"));
+        put(OutputType.JOIN_PROTECTED_MUC, new Sendable("<presence id='join_muc_%s' to='%s@%s/%s'><show>%s</show><status>%s</status><games><keystone><st>%s</st><s.t>%s</s.t><m>%s</m><s.p>keystone</s.p></keystone><league_of_legends><s.r>%s</s.r><st>%s</st><s.t>%s</s.t><m>%s</m><p>{&quot;championId&quot;:&quot;&quot;,&quot;companionId&quot;:&quot;1&quot;,&quot;damageSkinId&quot;:&quot;1&quot;,&quot;gameQueueType&quot;:&quot;&quot;,&quot;gameStatus&quot;:&quot;outOfGame&quot;,&quot;iconOverride&quot;:&quot;&quot;,&quot;initRankStat&quot;:&quot;0&quot;,&quot;level&quot;:&quot;30&quot;,&quot;mapId&quot;:&quot;&quot;,&quot;mapSkinId&quot;:&quot;1&quot;,&quot;masteryScore&quot;:&quot;0&quot;,&quot;profileIcon&quot;:&quot;%s&quot;,&quot;puuid&quot;:&quot;%s&quot;,&quot;regalia&quot;:&quot;{\\&quot;bannerType\\&quot;:2,\\&quot;crestType\\&quot;:1,\\&quot;selectedPrestigeCrest\\&quot;:0}&quot;,&quot;skinVariant&quot;:&quot;&quot;,&quot;skinname&quot;:&quot;&quot;}</p><s.p>league_of_legends</s.p><s.c>live</s.c></league_of_legends></games><x xmlns='http://jabber.org/protocol/muc'><password xmlns='http://jabber.org/protocol/muc#user'>%s</password></x></presence>"));
+        put(OutputType.LEAVE_MUC, new Sendable("<presence id='leave_muc_%s' to='%s@%s/%s' type='unavailable'/>"));
         put(OutputType.REFRESH_SESSION, new Sendable("<iq from=\"%s\" type=\"set\" id=\"0\"><query xmlns=\"jabber:iq:riotgames:rso\"><access-token>%s</access-token></query></iq><iq type=\"set\" id=\"xmpp_entitlements_0\"><entitlements xmlns=\"urn:riotgames:entitlements\"><token>%s</token></entitlements></iq>"));
         put(OutputType.FRIEND_ADD_NAME, new Sendable("<iq type=\"set\" id=\"roster_add_%s\"><query xmlns=\"jabber:iq:riotgames:roster\"><item subscription=\"pending_out\" name=\"%s\"><lol name=\"%s\"/></item></query></iq>"));
         put(OutputType.FRIEND_ADD_TAG, new Sendable("<iq type=\"set\" id=\"roster_add_%s\"><query xmlns=\"jabber:iq:riotgames:roster\"><item subscription=\"pending_out\"><id name=\"%s\" tagline=\"%s\"/></item></query></iq>"));
@@ -125,6 +128,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
             synchronized (lock) {
                 if (this.list == null || this.identity == null) return;
                 this.dispatch("update_client_active_5", "CLIENT_READY");
+
             }
         });
         this.addHandler(EventType.MESSAGE, (EventListener<AbstractMessage>) message -> handlers.get(HandlerType.MESSAGE).dispatch(Unsafe.cast(message)));
@@ -267,7 +271,7 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         String id = String.join("_", "set", "archive", "read", String.valueOf(identifier), jid);
         String timestamp = SIMPLE_DATE_FORMAT.format(new Date(System.currentTimeMillis()));
         if (consumer != null) consumers.put(id, consumer);
-        map.get(OutputType.ARCHIVE).send(this, id, jid, timestamp);
+        map.get(OutputType.ARCHIVE_READ).send(this, id, jid, timestamp);
     }
 
     public void blockUser(String jid) {
@@ -300,6 +304,39 @@ public class VirtualRiotXMPPClient extends AbstractEventHandler implements IActi
         sendable.send(this, timestamp, identifier, jid, message);
         dispatch("message_" + id, plain);
     }
+
+    public void joinUnprotectedMuc(String champSelectId, String domain) {
+        String jid = identity.getJID();
+        long timestamp = System.currentTimeMillis();
+
+        //TODO update
+        String type = "chat";
+        String status = "";
+        long icon = 29;
+
+        String host = String.format("champ-select.%s.pvp.net", domain);
+        String region = connectionHandler.getOutput().getCallback().getGameRegion();
+        map.get(OutputType.JOIN_UNPROTECTED_MUC).send(this, integer.incrementAndGet(), champSelectId, host, identity.getPUUID(), type, status, type, timestamp, status, region, type, timestamp, status, icon, jid);
+    }
+
+    public void joinProtectedMuc(String champSelectId, String domain, String password) {
+        String jid = identity.getJID();
+        long timestamp = System.currentTimeMillis();
+
+        String type = "chat";
+        String status = "";
+        long icon = 29;
+
+        String host = String.format("champ-select.%s.pvp.net", domain);
+        String region = connectionHandler.getOutput().getCallback().getGameRegion();
+        map.get(OutputType.JOIN_PROTECTED_MUC).send(this, integer.incrementAndGet(), champSelectId, host, identity.getPUUID(), type, status, type, timestamp, status, region, type, timestamp, status, icon, jid, password);
+    }
+
+    public void leaveMuc(String champSelectId) {
+        String domain = String.format("champ-select.%s.pvp.net", callback.getChatServer().getDomain());
+        map.get(OutputType.LEAVE_MUC).send(this, integer.incrementAndGet(), champSelectId, domain, identity.getPUUID());
+    }
+
 
     public void setPresence(String type, String status, long icon) {
         String jid = identity.getJID();
