@@ -2,8 +2,11 @@ package com.hawolt.xmpp.misc.impl;
 
 import com.hawolt.authentication.WebOrigin;
 import com.hawolt.cryptography.SHA256;
-import com.hawolt.virtual.leagueclient.VirtualLeagueClient;
-import com.hawolt.virtual.riotclient.VirtualRiotClient;
+import com.hawolt.virtual.leagueclient.authentication.Entitlement;
+import com.hawolt.virtual.leagueclient.authentication.GeoPas;
+import com.hawolt.virtual.leagueclient.client.Authentication;
+import com.hawolt.virtual.leagueclient.client.VirtualLeagueClient;
+import com.hawolt.virtual.riotclient.client.IVirtualRiotClient;
 import com.hawolt.xmpp.misc.IRiotDataCallback;
 import com.hawolt.xmpp.misc.RiotChatServer;
 import org.json.JSONObject;
@@ -23,7 +26,7 @@ public class RiotDataCallback implements IRiotDataCallback {
 
     public RiotDataCallback(VirtualLeagueClient virtualLeagueClient) {
         this.virtualLeagueClient = virtualLeagueClient;
-        VirtualRiotClient virtualRiotClient = virtualLeagueClient.getVirtualRiotClient();
+        IVirtualRiotClient virtualRiotClient = virtualLeagueClient.getVirtualRiotClient();
         JSONObject object = new JSONObject(new String(Base64.getDecoder().decode(getXMPPToken().split("\\.")[1])));
         this.riotChatServer = RiotChatServer.valueOf(object.getString("affinity").replace("-", "_").toUpperCase());
         this.identifier = SHA256.hash(String.join(":", virtualRiotClient.getUsername(), virtualRiotClient.getPassword()));
@@ -49,7 +52,7 @@ public class RiotDataCallback implements IRiotDataCallback {
 
     @Override
     public String getXMPPToken() {
-        return virtualLeagueClient.getGeoPas().get("xmpp_token");
+        return ((GeoPas) virtualLeagueClient.get(Authentication.GEOPAS)).get("xmpp_token");
     }
 
     @Override
@@ -69,12 +72,12 @@ public class RiotDataCallback implements IRiotDataCallback {
 
     @Override
     public String getEntitlementToken() {
-        return virtualLeagueClient.getEntitlement().get("entitlement.lol.entitlements_token", true);
+        return ((Entitlement) virtualLeagueClient.get(Authentication.ENTITLEMENT)).get("entitlement.lol.entitlements_token", true);
     }
 
     @Override
     public Supplier<String> getEntitlementSupplier() {
-        return () -> virtualLeagueClient.getEntitlement().get("entitlement.oauthtoken.entitlements_token", true);
+        return () -> ((Entitlement) virtualLeagueClient.get(Authentication.ENTITLEMENT)).get("entitlement.oauthtoken.entitlements_token", true);
     }
 
     @Override
