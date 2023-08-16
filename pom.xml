@@ -23,9 +23,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.hawolt</groupId>
-            <artifactId>league-client-api</artifactId>
-            <version>0cfcb480f3</version>
+            <groupId>com.github.hawolt.league-client-api</groupId>
+            <artifactId>VirtualClient</artifactId>
+            <version>main-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
