@@ -1,5 +1,6 @@
 package com.hawolt.xmpp.event.objects.friends;
 
+import com.hawolt.logger.Logger;
 import com.hawolt.xmpp.event.objects.friends.impl.OfflineFriend;
 import com.hawolt.xmpp.event.objects.friends.impl.OnlineFriend;
 import org.json.JSONObject;

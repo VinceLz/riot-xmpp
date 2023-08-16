@@ -3,13 +3,16 @@ package com.hawolt.xmpp.event.objects.presence;
 import com.hawolt.xmpp.event.objects.presence.impl.*;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created: 13/04/2022 12:36
  * Author: Twitter @hawolt
  **/
 
 public class Presence extends JSONObject {
-    
+
     @Override
     public String toString() {
         String rawHtml = super.toString();
@@ -35,12 +38,21 @@ public class Presence extends JSONObject {
     }
 
     public static AbstractPresence create(JSONObject o) {
-        if (!o.has("show")) {
-            if (o.has("id")) {
+        List<String> games = new ArrayList<>();
+        if (o.has("games")) {
+            JSONObject internal = o.getJSONObject("games");
+            for (String game : internal.keySet()) {
+                if ("keystone".equals(game)) continue;
+                games.add(game);
+            }
+        }
+        if (!o.has("show") || games.isEmpty()) {
+            return new OfflinePresence(o);
+            /*if (o.has("id")) {
                 return new DisconnectPresence(o);
             } else {
                 return new OfflinePresence(o);
-            }
+            }*/
         } else {
             if (o.getString("show").equals("mobile")) {
                 if (!o.has("last_online")) {
