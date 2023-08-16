@@ -9,14 +9,8 @@ import org.json.JSONObject;
  **/
 
 public class OfflinePresence extends AbstractPresence {
-    private final String type;
 
     public OfflinePresence(JSONObject o) {
         super(o);
-        this.type = o.getString("type");
-    }
-
-    public String getType() {
-        return type;
     }
 }
